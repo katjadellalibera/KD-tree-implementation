@@ -15,8 +15,10 @@ def built_tree(dictionary,d=0):
     if len(dictionary)==0:
         return None
     if len(dictionary)==1:
-        return Node(list(dictionary.keys())[0],list(dictionary.values())[0],None,None)
-    sortedindexes=sorted(list(dictionary.keys()),key=(lambda x: dictionary[x][d]))
+        return Node(list(dictionary.keys())[0],
+            list(dictionary.values())[0],None,None)
+    sortedindexes=sorted(list(dictionary.keys()),
+        key=(lambda x: dictionary[x][d]))
     print(sortedindexes)
     pivot=sortedindexes[len(sortedindexes)//2]
     lower={i:dictionary[i] for i in sortedindexes[:len(sortedindexes)//2]}
@@ -25,5 +27,11 @@ def built_tree(dictionary,d=0):
         built_tree(lower,(d+1)%len(list(dictionary.values())[0])),
         built_tree(upper,(d+1)%len(list(dictionary.values())[0])))
 
+def find_approx_nearest(tree,value):
+    return print("not defined")
 
-print(built_tree({0:[1,4],1:[33,2],2:[54,63],3:[1,54]}))
+def find_exact_nearest(tree,value):
+    return print("not defined")
+
+def add_node(tree,value):
+    return print("not defined")
