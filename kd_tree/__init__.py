@@ -1,34 +1,29 @@
-from collections import namedtuple
-from operator import itemgetter
-from pprint import pformat
+import numpy as np
 
-class Node(namedtuple("Node","location left_child right_child")):
-    # how to represent the node:
-    def __repr__(self):
-        return pformat(tuple(self))
+class Node:
 
-# creating a kd=tree out of the list of values
-def kd_tree(lst,depth=0):
-    # letting 
-    if lst==None:
+    def __init__(self,name,value,l_child,r_child):
+        self.name=name
+        self.value=value
+        self.l_child=l_child
+        self.r_child=r_child
+
+    def __str__(self):
+        return str((self.value,(str(self.l_child),str(self.r_child))))
+
+def built_tree(dictionary,d=0):
+    if len(dictionary)==0:
         return None
-    else:
-        # determining how many dimensions the points have
-        k=len(lst[0])
-    # determining which dimension to consider in the current iteration of kd_tree
-    dimension=depth%k
-    # sorting the list with the dimension as criterion and choosing the median as pivot
-    lst.sort(key=itemgetter(dimension))
-    pivot=len(lst)//2
-    # recursively calling the function to create the tree
-    return Node(
-        location=lst[pivot],
-        left_child=kd_tree(lst[:pivot],depth+1),
-        right_child=kd_tree(lst[pivot+1:],depth+1)
-    )
+    if len(dictionary)==1:
+        return Node(list(dictionary.keys())[0],list(dictionary.values())[0],None,None)
+    sortedindexes=sorted(list(dictionary.keys()),key=(lambda x: dictionary[x][d]))
+    print(sortedindexes)
+    pivot=sortedindexes[len(sortedindexes)//2]
+    lower={i:dictionary[i] for i in sortedindexes[:len(sortedindexes)//2]}
+    upper={i:dictionary[i] for i in sortedindexes[len(sortedindexes)//2+1:]}
+    return Node(pivot,dictionary[pivot],
+        built_tree(lower,(d+1)%len(list(dictionary.values())[0])),
+        built_tree(upper,(d+1)%len(list(dictionary.values())[0])))
 
-def approximate_nearest(tree,elem):
 
-def exact_nearest(tree,elem):
-
-def
+print(built_tree({0:[1,4],1:[33,2],2:[54,63],3:[1,54]}))
