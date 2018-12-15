@@ -1,4 +1,5 @@
 import numpy as np
+import math
 import random as random
 
 class Node:
@@ -11,9 +12,11 @@ class Node:
         self.d=d
 
     def __str__(self):
-        return str((self.name,(str(self.l_child),str(self.r_child))))
-    #def __str__(self):
-    #    return str(self.name)
+        return "\t".join(str("name: {}, value: {}, d: {}  \n{}  \n{} ".format(
+            self.name,self.value,self.d,self.l_child,self.r_child))
+            .splitlines(True))
+
+
 
 def build_tree(dictionary,d=0):
     if len(dictionary)==0:
@@ -33,7 +36,7 @@ def build_tree(dictionary,d=0):
 def find_approx_nearest(tree,value):
     if tree.l_child==None and tree.r_child==None:
         return tree
-    elif tree.value[tree.d]<=value[tree.d]:
+    elif tree.value[tree.d]>=value[tree.d]:
         if tree.l_child!=None:
             return find_approx_nearest(tree.l_child,value)
         else:
@@ -44,13 +47,38 @@ def find_approx_nearest(tree,value):
         else:
             return tree
 
-exampletree=build_tree(dict(enumerate(np.random.rand(100,3).tolist())))
+def distance(lsta, lstb):
+    if len(lsta)!=len(lstb):
+        return "Error: wrong dimensions"
+    return math.sqrt(sum([lsta[i]-lstb[i]**2 for i in range(len(lsta))]))
 
-
-print(find_approx_nearest(exampletree,[0.2,0.7,0.9]))
+def find_exact_nearest_helper(tree,value):
+    if dist>distance(tree.value,value):
+        closest=Node(tree.name,tree.value,None,None,None)
+        dist=distanc(tree.value,value)
+    if dist>(math.sqrt(tree.value[tree.d]-value[tree.d]**2)):
+        if tree.l_child!=None:
+            find_exact_nearest_helper(tree.l_child,value)
+        if tree.r_child!=None:
+            find_exact_nearest_helper(tree.r_child,value)
+    if dist<(math.sqrt(tree.value[tree.d]-value[tree.d]**2)):
+        if tree.value[tree.d]>=value[tree.d]:
+            if tree.l_child!=None:
+                find_exact_nearest_helper(tree.l_child,value)
+        else:
+            if tree.r_child!=None:
+                find_exact_nearest_helper(tree.r_child,value)
 
 def find_exact_nearest(tree,value):
-    return print("not defined")
+    closest=find_approx_nearest(tree,value)
+    approx=closest.value
+    dist=distance(approx,value)
+    find_exact_nearest_helper(tree,value)
+    return [dist,closest]
+
+exampletree=build_tree(dict(enumerate(np.random.rand(1000,3).tolist())))
+print(find_approx_nearest(exampletree,[0.2,0.7,0.9]).value)
+print(find_exact_nearest(exampletree,[0.2,0.7,0.9]))
 
 def add_node(tree,value):
     return print("not defined")
