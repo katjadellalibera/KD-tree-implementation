@@ -17,7 +17,6 @@ class Node:
             .splitlines(True))
 
 
-
 def build_tree(dictionary,d=0):
     if len(dictionary)==0:
         return None
@@ -50,34 +49,40 @@ def find_approx_nearest(tree,value):
 def distance(lsta, lstb):
     if len(lsta)!=len(lstb):
         return "Error: wrong dimensions"
-    return math.sqrt(sum([lsta[i]-lstb[i]**2 for i in range(len(lsta))]))
+    return math.sqrt(sum([(lsta[i]-lstb[i])**2 for i in range(len(lsta))]))
 
-def find_exact_nearest_helper(tree,value):
-    if dist>distance(tree.value,value):
-        closest=Node(tree.name,tree.value,None,None,None)
-        dist=distanc(tree.value,value)
-    if dist>(math.sqrt(tree.value[tree.d]-value[tree.d]**2)):
-        if tree.l_child!=None:
-            find_exact_nearest_helper(tree.l_child,value)
-        if tree.r_child!=None:
-            find_exact_nearest_helper(tree.r_child,value)
-    if dist<(math.sqrt(tree.value[tree.d]-value[tree.d]**2)):
-        if tree.value[tree.d]>=value[tree.d]:
-            if tree.l_child!=None:
-                find_exact_nearest_helper(tree.l_child,value)
-        else:
-            if tree.r_child!=None:
-                find_exact_nearest_helper(tree.r_child,value)
+
 
 def find_exact_nearest(tree,value):
+
     closest=find_approx_nearest(tree,value)
     approx=closest.value
     dist=distance(approx,value)
+
+    def find_exact_nearest_helper(tree,value):
+        nonlocal dist
+        nonlocal closest
+        if dist>distance(tree.value,value):
+            closest=Node(tree.name,tree.value,None,None,None)
+            dist=distance(tree.value,value)
+        if dist>abs(tree.value[tree.d]-value[tree.d]):
+            if tree.l_child!=None:
+                find_exact_nearest_helper(tree.l_child,value)
+            if tree.r_child!=None:
+                find_exact_nearest_helper(tree.r_child,value)
+        if dist<abs(tree.value[tree.d]-value[tree.d]):
+            if tree.value[tree.d]>=value[tree.d]:
+                if tree.l_child!=None:
+                    find_exact_nearest_helper(tree.l_child,value)
+            else:
+                if tree.r_child!=None:
+                    find_exact_nearest_helper(tree.r_child,value)
     find_exact_nearest_helper(tree,value)
-    return [dist,closest]
+    return (dist,closest.value)
 
 exampletree=build_tree(dict(enumerate(np.random.rand(1000,3).tolist())))
-print(find_approx_nearest(exampletree,[0.2,0.7,0.9]).value)
+print(distance(find_approx_nearest(exampletree,[0.2,0.7,0.9]).value,[0.2,0.7,0.9]),
+    find_approx_nearest(exampletree,[0.2,0.7,0.9]).value)
 print(find_exact_nearest(exampletree,[0.2,0.7,0.9]))
 
 def add_node(tree,value):
