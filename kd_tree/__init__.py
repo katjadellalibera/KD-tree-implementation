@@ -5,6 +5,9 @@ import random as random
 class Node:
 
     def __init__(self,name,value,l_child,r_child,d):
+        """
+        definition of a node and its properties
+        """
         self.name=name
         self.value=value
         self.l_child=l_child
@@ -12,6 +15,7 @@ class Node:
         self.d=d
 
     def __str__(self):
+
         return "\t".join(str("name: {}, value: {}, d: {}  \n{}  \n{} ".format(
             self.name,self.value,self.d,self.l_child,self.r_child))
             .splitlines(True))
@@ -79,11 +83,3 @@ def find_exact_nearest(tree,value):
                     find_exact_nearest_helper(tree.r_child,value)
     find_exact_nearest_helper(tree,value)
     return (dist,closest.value)
-
-exampletree=build_tree(dict(enumerate(np.random.rand(1000,3).tolist())))
-print(distance(find_approx_nearest(exampletree,[0.2,0.7,0.9]).value,[0.2,0.7,0.9]),
-    find_approx_nearest(exampletree,[0.2,0.7,0.9]).value)
-print(find_exact_nearest(exampletree,[0.2,0.7,0.9]))
-
-def add_node(tree,value):
-    return print("not defined")
