@@ -15,13 +15,30 @@ class Node:
         self.d=d
 
     def __str__(self):
-
+        """
+        how to display a tree: every new level is indented
+        example input:
+        print(build_tree({"a":[1,1,1],"b":[3,5,2],"c":[3,5,7],"d":[5,1,2]}))
+        example output:
+        name: c, value: [3, 5, 7], d: 0
+	       name: b, value: [3, 5, 2], d: 1
+		         name: a, value: [1, 1, 1], d: 2
+			              None
+			              None
+		         None
+	       name: d, value: [5, 1, 2], d: 1
+		         None
+		         None
+        """
         return "\t".join(str("name: {}, value: {}, d: {}  \n{}  \n{} ".format(
             self.name,self.value,self.d,self.l_child,self.r_child))
             .splitlines(True))
 
 
 def build_tree(dictionary,d=0):
+    """
+    Function to build a tree from a dictionary of names and values
+    """
     if len(dictionary)==0:
         return None
     if len(dictionary)==1:
@@ -37,6 +54,11 @@ def build_tree(dictionary,d=0):
         build_tree(upper,(d+1)%len(list(dictionary.values())[0])),d)
 
 def find_approx_nearest(tree,value):
+    """
+    function to very quickly find an approximation for the nearest neighbor
+    it may not be exact if the point is close to one of the pivot points,
+    because the nearest neighbor may be excluded prematurely
+    """
     if tree.l_child==None and tree.r_child==None:
         return tree
     elif tree.value[tree.d]>=value[tree.d]:
@@ -51,6 +73,10 @@ def find_approx_nearest(tree,value):
             return tree
 
 def distance(lsta, lstb):
+    """
+    Finds the distance between two coordinates in k dimensions with coordinates
+    described as lists
+    """
     if len(lsta)!=len(lstb):
         return "Error: wrong dimensions"
     return math.sqrt(sum([(lsta[i]-lstb[i])**2 for i in range(len(lsta))]))
@@ -58,12 +84,18 @@ def distance(lsta, lstb):
 
 
 def find_exact_nearest(tree,value):
-
+    """
+    finds the exact nearest neighbor by searching any node that is approximately
+    as close as the nearest neighbor
+    """
     closest=find_approx_nearest(tree,value)
     approx=closest.value
     dist=distance(approx,value)
 
     def find_exact_nearest_helper(tree,value):
+        """
+        helper function to find the exact nearest neighbor
+        """
         nonlocal dist
         nonlocal closest
         if dist>distance(tree.value,value):
