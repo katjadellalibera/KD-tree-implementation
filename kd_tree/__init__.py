@@ -82,4 +82,4 @@ def find_exact_nearest(tree,value):
                 if tree.r_child!=None:
                     find_exact_nearest_helper(tree.r_child,value)
     find_exact_nearest_helper(tree,value)
-    return (dist,closest.value)
+    return (dist,closest.name,closest.value)
