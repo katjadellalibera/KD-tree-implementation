@@ -7,14 +7,6 @@ Open the Command center and paste the following<br>
 ```
 pip install Katjas-kd-tree
 ```
-# Requirements
-You need to have the numpy, math, and random modules installed. For the example.py code you need the json module in addition. If you are unsure, you can run
-```
-pip install numpy
-pip install math
-pip install random
-pip install json
-```
 # How to run
 After installing the package import it by typing<br>
 ```
@@ -32,7 +24,7 @@ kd.find_exact_nearest(tree,value)
 # returns the exact nearest element of the tree to the value
 ```
 # Example use case
-To find the closest color in a dataset of named colors in the LAB color space. This color space works similar to RBG colors, but is design to let . we cannot use our usual quick-search methods or binary search-trees, since the data has more than 1 dimension and cannot simply be ordered. Therefore, we can create a tree with 3 dimensions, where every new level is split along a new dimension, iterating through all of them as often as needed. This allows us to very quickly get an approximation of the nearest neighbor and with slightly more effort find the exact nearest neighbor quicker than with a linear search.<br>
+To find the closest color in a dataset of named colors in the LAB color space. This color space works similar to RBG colors, but is design to let. we cannot use our usual quick-search methods or binary search-trees, since the data has more than 1 dimension and cannot simply be ordered. Therefore, we can create a tree with 3 dimensions, where every new level is split along a new dimension, iterating through all of them as often as needed. This allows us to very quickly get an approximation of the nearest neighbor and with slightly more effort find the exact nearest neighbor quicker than with a linear search.<br>
 ```
 # importing a dataset of paint colors and their position in the LAB colorspace
 with open ("paintcolors.json") as json_file:
@@ -52,4 +44,6 @@ This will return the approximate and exact nearest color to [0,0,0]<br>
 If you would like to run this code for yourself, please download the data from https://github.com/katjadellalibera/KD-tree-implementation/blob/master/paintcolors.json and the code from https://github.com/katjadellalibera/KD-tree-implementation/blob/master/example.py
 # Background
 **Complexity:**<br>
-A linear search runs with O(n) complexity, since it has to check every value. find_approx_nearest runs with O(log(n)) complexity on average. The find_exact_nearest function will exclude less of the tree at a time, but still run in O(log(n)), just with a higher constant factor.
+A linear search runs with O(n) complexity, since it has to check every value. find_approx_nearest runs with $O(\log(n))$ complexity on average, because it just has to go down a binary tree with a depth of $\log_2(n)$. In the worst case we have a oddly shaped tree like one with only two nodes, where the worst-case runtime could be $O(n)$, because every node is visited. The find_exact_nearest function will exclude less of the tree at a time, but still run in $O(\log(n))$, just with a higher constant factor.
+# Dependencies
+The implementation depends on a the pre-installed packages random, math and json as well as the numpy package.
