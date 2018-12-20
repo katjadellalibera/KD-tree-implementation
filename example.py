@@ -22,10 +22,13 @@ def linear_search(dict,value):
     return (lowestdist,lowest)
 print(linear_search(exampledictionary,[0.2,0.7,0.9,0.5]))
 
-# importing a dataset of paint colors and their position in the XXX colorspace
+# importing a dataset of paint colors and their position in the LAB colorspace
 with open ("paintcolors.json") as json_file:
     paintcolors=json.load(json_file)
 # creating a tree out of the paintcolors
 painttree=kd.build_tree(paintcolors)
-# finding the nearest color to [0,0,0]
+# finding the approximate and exact nearest color to [0,0,0]
+print((kd.distance(kd.find_approx_nearest(painttree,[0,0,0]).value,[0,0,0]),
+    kd.find_approx_nearest(painttree,[0,0,0]).name,
+    kd.find_approx_nearest(painttree,[0,0,0]).value))
 print(kd.find_exact_nearest(painttree,[0,0,0]))
