@@ -24,7 +24,8 @@ kd.find_exact_nearest(tree,value)
 # returns the exact nearest element of the tree to the value
 ```
 # Example use case
-To find the closest color in a dataset of named colors in the LAB color space. This color space works similar to RBG colors, but is design to let. we cannot use our usual quick-search methods or binary search-trees, since the data has more than 1 dimension and cannot simply be ordered. Therefore, we can create a tree with 3 dimensions, where every new level is split along a new dimension, iterating through all of them as often as needed. This allows us to very quickly get an approximation of the nearest neighbor and with slightly more effort find the exact nearest neighbor quicker than with a linear search.<br>
+To find the closest color in a dataset of named colors in the LAB (or CIELAB) color space. This color space works similar to RBG colors, but is design to let make colors that look similar to huymans be closer to each other in the color space. The first dimesnions is a spectrum from light to dark, the other two describe the green-red and blue-yellow value going from negative to positive value. More on LAB colors: https://en.wikipedia.org/wiki/CIELAB_color_space<br>
+We cannot use our usual quick-search methods or binary search-trees, since the data has more than 1 dimension and cannot simply be ordered. Therefore, we can create a tree with 3 dimensions, where every new level is split along a new dimension, iterating through all of them as often as needed. This allows us to very quickly get an approximation of the nearest neighbor and with slightly more effort find the exact nearest neighbor quicker than with a linear search.<br>
 ```
 # importing a dataset of paint colors and their position in the LAB colorspace
 with open ("paintcolors.json") as json_file:
@@ -40,6 +41,9 @@ print(kd.find_exact_nearest(painttree,[0,0,0]))
 This will return the approximate and exact nearest color to [0,0,0]<br>
 (0.23327147726897515, 'UniversalBlack', [0.233007, 0.010686, -0.0030215])<br>
 (0.22615200000001437, 'TwilightZone', [0.226152, 5.54817e-08, 5.84874e-08])<br>
+<br>
+The resulting kd-tree looks like this (nodes not above each other for clarity)<br>
+![Mathematica_visualization.jpg](attachment:Mathematica_visualization.jpg)
 <br>
 If you would like to run this code for yourself, please download the data from https://github.com/katjadellalibera/KD-tree-implementation/blob/master/paintcolors.json and the code from https://github.com/katjadellalibera/KD-tree-implementation/blob/master/example.py
 # Background
