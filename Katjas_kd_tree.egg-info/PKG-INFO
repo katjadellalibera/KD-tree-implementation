@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: Katjas-kd-tree
-Version: 0.0.3
+Version: 0.0.4
 Summary: An implementation of KD trees
 Home-page: https://github.com/katjadellalibera/KD-tree-implementation
 Author: Katja Della Libera
@@ -51,7 +51,7 @@ Description: # KD-tree-implementation
         (0.22615200000001437, 'TwilightZone', [0.226152, 5.54817e-08, 5.84874e-08])<br>
         <br>
         The resulting kd-tree looks like this (nodes not above each other for clarity)<br>
-        ![Visualization of the kd-tree for paintcolors](https://github.com/katjadellalibera/KD-tree-implementation/blob/master/Mathematica_visualization.jpg)
+        ![Visualization of the kd-tree for paintcolors](https://raw.githubusercontent.com/katjadellalibera/KD-tree-implementation/master/Mathematica_visualization.jpg)
         <br>
         If you would like to run this code for yourself, please download the data from https://github.com/katjadellalibera/KD-tree-implementation/blob/master/paintcolors.json and the code from https://github.com/katjadellalibera/KD-tree-implementation/blob/master/example.py
         # Background
