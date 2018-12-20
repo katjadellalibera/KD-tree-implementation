@@ -43,7 +43,7 @@ This will return the approximate and exact nearest color to [0,0,0]<br>
 (0.22615200000001437, 'TwilightZone', [0.226152, 5.54817e-08, 5.84874e-08])<br>
 <br>
 The resulting kd-tree looks like this (nodes not above each other for clarity)<br>
-![Visualization of the kd-tree for paintcolors](https://github.com/katjadellalibera/KD-tree-implementation/blob/master/Mathematica_visualization.jpg)
+![Visualization of the kd-tree for paintcolors](https://raw.githubusercontent.com/katjadellalibera/KD-tree-implementation/master/Mathematica_visualization.jpg)
 <br>
 If you would like to run this code for yourself, please download the data from https://github.com/katjadellalibera/KD-tree-implementation/blob/master/paintcolors.json and the code from https://github.com/katjadellalibera/KD-tree-implementation/blob/master/example.py
 # Background
