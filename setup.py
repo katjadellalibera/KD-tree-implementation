@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="Katjas_kd_tree",
-    version="0.0.1",
+    version="0.0.2",
     author="Katja Della Libera",
     author_email="katja.dellalibera@minerva.kgi.edu",
     description="An implementation of KD trees",
