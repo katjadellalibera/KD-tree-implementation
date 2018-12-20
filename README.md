@@ -43,7 +43,9 @@ This will return the approximate and exact nearest color to [0,0,0]<br>
 <br>
 If you would like to run this code for yourself, please download the data from https://github.com/katjadellalibera/KD-tree-implementation/blob/master/paintcolors.json and the code from https://github.com/katjadellalibera/KD-tree-implementation/blob/master/example.py
 # Background
-**Complexity:**<br>
-A linear search runs with O(n) complexity, since it has to check every value. find_approx_nearest runs with $O(\log(n))$ complexity on average, because it just has to go down a binary tree with a depth of $\log_2(n)$. In the worst case we have a oddly shaped tree like one with only two nodes, where the worst-case runtime could be $O(n)$, because every node is visited. The find_exact_nearest function will exclude less of the tree at a time, but still run in $O(\log(n))$, just with a higher constant factor.
+**Time-Complexity:**<br>
+A linear search runs with O(n) complexity, since it has to check every value. find_approx_nearest runs with $O(\log(n))$ complexity on average, because it just has to go down a binary tree with a depth of $\log_2(n)$. In the worst case we have a oddly shaped tree like one with only two nodes, where the worst-case runtime could be $O(n)$, because every node is visited. The find_exact_nearest function will exclude less of the tree at a time, but still run in $O(\log(n))$, just with a higher constant factor.<br>
+**Space-Complexity:**<br>
+Storing the data points as nodes rather than in a dictionary or array will still take $O(n)$ space complexity. There may be a slightly higher constant term k, accounting for the split-dimension d and pointers to the left an right child, but the total complexity is $O(n)$
 # Dependencies
 The implementation depends on a the pre-installed packages random, math and json as well as the numpy package.
